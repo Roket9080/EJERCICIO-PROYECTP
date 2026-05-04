@@ -10,7 +10,10 @@ import { ordenarPorMezcla } from "./ejercicio30.js";
 const select = document.getElementById("selectEjercicio");
 const boton = document.getElementById("botonEjecutar");
 const botonTest = document.getElementById("botonTest");
+
 const resultado = document.getElementById("resultado");
+const resultadoTest = document.getElementById("resultadoTest");
+
 const inputsContainer = document.getElementById("inputsContainer");
 
 // ===== OCULTAR INPUTS =====
@@ -101,25 +104,25 @@ botonTest.addEventListener("click", () => {
 
     try {
 
-        // ===== 26 =====
+        // ===== EJERCICIO 26 =====
         check(
             "Ejercicio 26",
-            typeof encontrarSubarrayMaximo([1,2,3,-1,5]) === "number"
+            typeof encontrarSubarrayMaximo("1,2,3,-1,5") === "number"
         );
 
-        // ===== 27 =====
+        // ===== EJERCICIO 27 =====
         check(
             "Ejercicio 27",
-            JSON.stringify(combinarVectores([1,2],[3,4])) === JSON.stringify([1,2,3,4])
+            JSON.stringify(combinarVectores("1,2","3,4")) === JSON.stringify([1,2,3,4])
         );
 
-        // ===== 28 =====
+        // ===== EJERCICIO 28 =====
         check(
             "Ejercicio 28",
-            Array.isArray(encontrarPrimos(10))
+            Array.isArray(encontrarPrimos("10"))
         );
 
-        // ===== 29 =====
+        // ===== EJERCICIO 29 =====
         check(
             "Ejercicio 29",
             Array.isArray(
@@ -130,15 +133,16 @@ botonTest.addEventListener("click", () => {
             )
         );
 
-        // ===== 30 =====
+        // ===== EJERCICIO 30 =====
         check(
             "Ejercicio 30",
-            Array.isArray(ordenarPorMezcla([5,3,1,4]))
+            Array.isArray(ordenarPorMezcla("5,3,1,4"))
         );
 
     } catch (e) {
         resultados.push("Error en tests: " + e.message);
     }
 
-    resultado.textContent = resultados.join("\n");
+    // 👇 SALIDA SOLO PARA TESTS
+    resultadoTest.textContent = resultados.join("\n");
 });
