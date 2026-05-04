@@ -1,3 +1,4 @@
+
 // ===== IMPORTS =====
 import { encontrarSubarrayMaximo } from "./ejercicio26.js";
 import { combinarVectores } from "./ejercicio27.js";
@@ -8,6 +9,7 @@ import { ordenarPorMezcla } from "./ejercicio30.js";
 // ===== ELEMENTOS DOM =====
 const select = document.getElementById("selectEjercicio");
 const boton = document.getElementById("botonEjecutar");
+const botonTest = document.getElementById("botonTest");
 const resultado = document.getElementById("resultado");
 const inputsContainer = document.getElementById("inputsContainer");
 
@@ -29,13 +31,12 @@ select.addEventListener("change", () => {
     }
 });
 
-// ===== EJECUTAR =====
+// ===== EJECUTAR EJERCICIO =====
 boton.addEventListener("click", () => {
 
     const opcion = select.value;
     let res = "";
 
-    // Validación básica
     if (!opcion) {
         resultado.textContent = "Seleccione un ejercicio";
         return;
@@ -45,27 +46,23 @@ boton.addEventListener("click", () => {
 
         switch (opcion) {
 
-            // ===== EJERCICIO 26 =====
             case "26":
                 const v26 = document.getElementById("vector26Input").value;
                 res = encontrarSubarrayMaximo(v26);
                 break;
 
-            // ===== EJERCICIO 27 =====
             case "27":
                 const vA = document.getElementById("vector27AInput").value;
                 const vB = document.getElementById("vector27BInput").value;
                 res = combinarVectores(vA, vB);
                 break;
 
-            // ===== EJERCICIO 28 =====
             case "28":
                 const limite = document.getElementById("limite28Input").value;
                 const primos = encontrarPrimos(limite);
                 res = "Primos: " + primos.join(", ");
                 break;
 
-            // ===== EJERCICIO 29 =====
             case "29":
                 const textoA = document.getElementById("matriz29AInput").value;
                 const textoB = document.getElementById("matriz29BInput").value;
@@ -73,25 +70,14 @@ boton.addEventListener("click", () => {
                 const m1 = parseMatrix(textoA);
                 const m2 = parseMatrix(textoB);
 
-                if (!m1 || !m2) {
-                    res = "Formato inválido. Usa: 1,2;3,4";
-                    break;
-                }
-
                 const matriz = multiplicarMatrices(m1, m2);
-
-                // Convertir matriz a texto
                 res = matriz.map(fila => fila.join(", ")).join(" | ");
                 break;
 
-            // ===== EJERCICIO 30 =====
             case "30":
                 const v30 = document.getElementById("valores30Input").value;
                 res = ordenarPorMezcla(v30);
                 break;
-
-            default:
-                res = "Opción inválida";
         }
 
     } catch (error) {
@@ -99,4 +85,60 @@ boton.addEventListener("click", () => {
     }
 
     resultado.textContent = res;
+});
+
+
+// ======================================================
+// 🧪 TESTS (BOTÓN TEST)
+// ======================================================
+botonTest.addEventListener("click", () => {
+
+    const resultados = [];
+
+    function check(nombre, condicion) {
+        resultados.push(`${nombre}: ${condicion ? "APROBADO" : "NO APROBADO"}`);
+    }
+
+    try {
+
+        // ===== 26 =====
+        check(
+            "Ejercicio 26",
+            typeof encontrarSubarrayMaximo([1,2,3,-1,5]) === "number"
+        );
+
+        // ===== 27 =====
+        check(
+            "Ejercicio 27",
+            JSON.stringify(combinarVectores([1,2],[3,4])) === JSON.stringify([1,2,3,4])
+        );
+
+        // ===== 28 =====
+        check(
+            "Ejercicio 28",
+            Array.isArray(encontrarPrimos(10))
+        );
+
+        // ===== 29 =====
+        check(
+            "Ejercicio 29",
+            Array.isArray(
+                multiplicarMatrices(
+                    parseMatrix("1,2;3,4"),
+                    parseMatrix("5,6;7,8")
+                )
+            )
+        );
+
+        // ===== 30 =====
+        check(
+            "Ejercicio 30",
+            Array.isArray(ordenarPorMezcla([5,3,1,4]))
+        );
+
+    } catch (e) {
+        resultados.push("Error en tests: " + e.message);
+    }
+
+    resultado.textContent = resultados.join("\n");
 });
