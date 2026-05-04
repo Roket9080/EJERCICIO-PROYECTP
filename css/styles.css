@@ -1,0 +1,183 @@
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ================= FONDO ================= */
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(
+        to bottom,
+        #FCD116 0%,
+        #FCD116 50%,
+        #003893 50%,
+        #003893 75%,
+        #CE1126 75%,
+        #CE1126 100%
+    );
+
+    position: relative;
+    overflow: hidden;
+}
+
+/* ================= COPA ================= */
+body::after {
+    content: "";
+    position: absolute;
+    right: 4%;
+    bottom: 4%;
+    width: 160px;
+    height: 160px;
+
+    background: url("../img/copa.png") no-repeat center/contain;
+    opacity: 0.95;
+
+    filter: drop-shadow(0 0 10px gold);
+}
+
+/* ================= ESCUDO ================= */
+body::before {
+    content: "";
+    position: absolute;
+    left: 4%;
+    top: 4%;
+    width: 150px;
+    height: 150px;
+
+    background: url("../img/escudo.png") no-repeat center/contain;
+    opacity: 0.95;
+
+    filter: drop-shadow(0 0 8px rgba(0,0,0,0.6));
+}
+
+/* ================= CONTENEDOR ================= */
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 520px;
+    background: rgba(2, 6, 23, 0.95);
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.7);
+    backdrop-filter: blur(8px);
+}
+
+/* ================= ESTRELLA ================= */
+.container::before {
+    content: "★";
+    position: absolute;
+    top: -18px;
+    left: 35px;
+    font-size: 32px;
+    color: gold;
+    text-shadow: 0 0 12px gold, 0 0 20px gold;
+}
+
+/* ================= TITULO ================= */
+h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #FCD116;
+    font-size: 26px;
+    letter-spacing: 1px;
+}
+
+/* ================= LABEL ================= */
+label {
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+/* ================= SELECT ================= */
+select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 20px;
+    background: #1e293b;
+    color: #ffffff;
+    font-size: 14px;
+    outline: none;
+}
+
+/* ================= INPUTS ================= */
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: none;
+    background: #1e293b;
+    color: #ffffff;
+    font-size: 14px;
+    outline: none;
+}
+
+/* ================= BOTON ================= */
+button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(45deg, #FCD116, #CE1126);
+    color: #020617;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    transition: all 0.25s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+}
+
+/* ================= RESULTADO ================= */
+h2 {
+    margin-top: 25px;
+    margin-bottom: 10px;
+    color: #FCD116;
+    font-size: 18px;
+}
+
+#resultado {
+    background: #1e293b;
+    padding: 15px;
+    border-radius: 10px;
+    min-height: 45px;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* ================= INPUTS DINAMICOS ================= */
+#inputsContainer > div {
+    margin-bottom: 10px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 600px) {
+    .container {
+        margin: 10px;
+        padding: 20px;
+    }
+
+    body::after,
+    body::before {
+        width: 100px;
+        height: 100px;
+        opacity: 0.6;
+    }
+}

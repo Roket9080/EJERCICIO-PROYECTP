@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Menú de Ejercicios</title>
+
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Menú de Ejercicios</h1>
+
+    <label for="selectEjercicio">Seleccione un ejercicio:</label>
+    <select id="selectEjercicio">
+        <option value="">-- Seleccionar --</option>
+        <option value="26">Ejercicio 26</option>
+        <option value="27">Ejercicio 27</option>
+        <option value="28">Ejercicio 28</option>
+        <option value="29">Ejercicio 29</option>
+        <option value="30">Ejercicio 30</option>
+    </select>
+
+    <div id="inputsContainer">
+
+        <!-- 26 -->
+        <div id="inputs26" style="display:none;">
+            <p>Vector:</p>
+            <input type="text" id="vector26Input" placeholder="Ej: 1,2,-3,4,5">
+        </div>
+
+        <!-- 27 -->
+        <div id="inputs27" style="display:none;">
+            <p>Vector 1:</p>
+            <input type="text" id="vector27AInput" placeholder="Ej: 1,2,3">
+
+            <p>Vector 2:</p>
+            <input type="text" id="vector27BInput" placeholder="Ej: 4,5,6">
+        </div>
+
+        <!-- 28 (CORREGIDO) -->
+        <div id="inputs28" style="display:none;">
+            <p>Límite:</p>
+            <input type="number" id="limite28Input" placeholder="Ej: 20">
+        </div>
+
+        <!-- 29 -->
+        <div id="inputs29" style="display:none;">
+            <p>Matriz A (ej: 1,2;3,4):</p>
+            <input type="text" id="matriz29AInput">
+
+            <p>Matriz B (ej: 5,6;7,8):</p>
+            <input type="text" id="matriz29BInput">
+        </div>
+
+        <!-- 30 -->
+        <div id="inputs30" style="display:none;">
+            <p>Valores:</p>
+            <input type="text" id="valores30Input" placeholder="Ej: 5,3,1,4">
+        </div>
+
+    </div>
+
+    <button id="botonEjecutar">Ejecutar</button>
+
+    <h2>Resultado:</h2>
+    <p id="resultado"></p>
+</div>
+
+<script type="module" src="./js/menu.js"></script>
+
+</body>
+</html>
