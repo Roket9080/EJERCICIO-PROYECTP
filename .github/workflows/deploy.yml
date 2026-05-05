@@ -18,6 +18,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    # 🔥 ESTA LÍNEA ES LA SOLUCIÓN
+    environment:
+      name: github-pages
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
