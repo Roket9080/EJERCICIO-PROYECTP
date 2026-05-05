@@ -162,6 +162,28 @@ h2 {
     line-height: 1.5;
 }
 
+/* ================= RESULTADO TEST (CORREGIDO) ================= */
+#resultadoTest {
+    background: #1e293b;
+    padding: 15px;
+    border-radius: 10px;
+    min-height: 45px;
+    color: #ffffff; /* color base */
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    font-weight: bold;
+}
+
+/* ================= COLORES DINAMICOS TEST ================= */
+.test-aprobado {
+    color: #00ff88;
+}
+
+.test-no-aprobado {
+    color: #ff4d4d;
+}
+
 /* ================= INPUTS DINAMICOS ================= */
 #inputsContainer > div {
     margin-bottom: 10px;

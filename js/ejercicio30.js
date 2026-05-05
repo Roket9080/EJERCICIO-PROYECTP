@@ -1,40 +1,40 @@
 export function ordenarPorMezcla(texto) {
-    if (!texto) return "Ingresa valores";
 
-    const array = texto.split(",").map(n => Number(n.trim()));
+    // convertir a array
+    let arr = texto.split(",").map(Number);
 
-    if (array.some(isNaN)) {
-        return "Solo números separados por coma";
+    // validar
+    if (arr.some(isNaN)) {
+        throw new Error("Entrada inválida");
     }
 
-    const ordenado = mergeSort(array);
+    // algoritmo merge sort
+    function mergeSort(array) {
+        if (array.length <= 1) return array;
 
-    return "Ordenado: " + ordenado.join(", ");
-}
+        const mitad = Math.floor(array.length / 2);
+        const izquierda = mergeSort(array.slice(0, mitad));
+        const derecha = mergeSort(array.slice(mitad));
 
-// ===== MERGE SORT =====
-function mergeSort(arr) {
-    if (arr.length <= 1) return arr;
+        return merge(izquierda, derecha);
+    }
 
-    const mid = Math.floor(arr.length / 2);
-    const left = mergeSort(arr.slice(0, mid));
-    const right = mergeSort(arr.slice(mid));
+    function merge(left, right) {
+        let resultado = [];
+        let i = 0, j = 0;
 
-    return merge(left, right);
-}
-
-function merge(a, b) {
-    let r = [], i = 0, j = 0;
-
-    while (i < a.length && j < b.length) {
-        if (a[i] < b[j]) {
-            r.push(a[i]);
-            i++;
-        } else {
-            r.push(b[j]);
-            j++;
+        while (i < left.length && j < right.length) {
+            if (left[i] < right[j]) {
+                resultado.push(left[i]);
+                i++;
+            } else {
+                resultado.push(right[j]);
+                j++;
+            }
         }
+
+        return resultado.concat(left.slice(i)).concat(right.slice(j));
     }
 
-    return r.concat(a.slice(i)).concat(b.slice(j));
+    return mergeSort(arr); // 👈 ARRAY
 }

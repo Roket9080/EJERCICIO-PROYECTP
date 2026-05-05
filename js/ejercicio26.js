@@ -9,5 +9,5 @@ export function encontrarSubarrayMaximo(texto) {
         maxGlobal = Math.max(maxGlobal, maxActual);
     }
 
-    return "Subarray máximo: " + maxGlobal;
+    return maxGlobal; // 👈 SOLO número
 }

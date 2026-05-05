@@ -4,5 +4,5 @@ export function combinarVectores(v1, v2) {
 
     let combinado = arr1.concat(arr2);
 
-    return "Vector combinado: " + combinado.join(", ");
+    return combinado; // 👈 SOLO array
 }

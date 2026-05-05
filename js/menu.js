@@ -1,4 +1,3 @@
-
 // ===== IMPORTS =====
 import { encontrarSubarrayMaximo } from "./ejercicio26.js";
 import { combinarVectores } from "./ejercicio27.js";
@@ -6,14 +5,15 @@ import { encontrarPrimos } from "./ejercicio28.js";
 import { multiplicarMatrices, parseMatrix } from "./ejercicio29.js";
 import { ordenarPorMezcla } from "./ejercicio30.js";
 
-// ===== ELEMENTOS DOM =====
+import { ejecutarTestPorEjercicio } from "../test/app.test.js";
+
+// ===== DOM =====
 const select = document.getElementById("selectEjercicio");
 const boton = document.getElementById("botonEjecutar");
 const botonTest = document.getElementById("botonTest");
 
 const resultado = document.getElementById("resultado");
 const resultadoTest = document.getElementById("resultadoTest");
-
 const inputsContainer = document.getElementById("inputsContainer");
 
 // ===== OCULTAR INPUTS =====
@@ -25,16 +25,11 @@ function ocultarInputs() {
 // ===== CAMBIO DE EJERCICIO =====
 select.addEventListener("change", () => {
     ocultarInputs();
-
-    const valor = select.value;
-
-    if (valor) {
-        const bloque = document.getElementById("inputs" + valor);
-        if (bloque) bloque.style.display = "block";
-    }
+    const bloque = document.getElementById("inputs" + select.value);
+    if (bloque) bloque.style.display = "block";
 });
 
-// ===== EJECUTAR EJERCICIO =====
+// ===== EJECUTAR =====
 boton.addEventListener("click", () => {
 
     const opcion = select.value;
@@ -46,103 +41,87 @@ boton.addEventListener("click", () => {
     }
 
     try {
-
         switch (opcion) {
 
             case "26":
                 const v26 = document.getElementById("vector26Input").value;
-                res = encontrarSubarrayMaximo(v26);
+                res = "Subarray máximo: " + encontrarSubarrayMaximo(v26);
                 break;
 
             case "27":
                 const vA = document.getElementById("vector27AInput").value;
                 const vB = document.getElementById("vector27BInput").value;
-                res = combinarVectores(vA, vB);
+                res = "Vector combinado: " + combinarVectores(vA, vB).join(", ");
                 break;
 
             case "28":
                 const limite = document.getElementById("limite28Input").value;
-                const primos = encontrarPrimos(limite);
-                res = "Primos: " + primos.join(", ");
+                res = "Primos: " + encontrarPrimos(limite).join(", ");
                 break;
 
             case "29":
-                const textoA = document.getElementById("matriz29AInput").value;
-                const textoB = document.getElementById("matriz29BInput").value;
-
-                const m1 = parseMatrix(textoA);
-                const m2 = parseMatrix(textoB);
-
-                const matriz = multiplicarMatrices(m1, m2);
-                res = matriz.map(fila => fila.join(", ")).join(" | ");
+                const a = document.getElementById("matriz29AInput").value;
+                const b = document.getElementById("matriz29BInput").value;
+                const m = multiplicarMatrices(parseMatrix(a), parseMatrix(b));
+                res = m.map(f => f.join(", ")).join(" | ");
                 break;
 
             case "30":
                 const v30 = document.getElementById("valores30Input").value;
-                res = ordenarPorMezcla(v30);
+                res = "Ordenado: " + ordenarPorMezcla(v30).join(", ");
                 break;
         }
 
-    } catch (error) {
-        res = "Error: " + error.message;
+    } catch (e) {
+        res = "Error: " + e.message;
     }
 
     resultado.textContent = res;
 });
 
-
-// ======================================================
-// 🧪 TESTS (BOTÓN TEST)
-// ======================================================
+// ===== TEST INDIVIDUAL =====
 botonTest.addEventListener("click", () => {
 
-    const resultados = [];
+    const ejercicio = select.value;
 
-    function check(nombre, condicion) {
-        resultados.push(`${nombre}: ${condicion ? "APROBADO" : "NO APROBADO"}`);
+    if (!ejercicio) {
+        resultadoTest.textContent = "Seleccione un ejercicio";
+        return;
     }
 
-    try {
+    let inputs = {};
 
-        // ===== EJERCICIO 26 =====
-        check(
-            "Ejercicio 26",
-            typeof encontrarSubarrayMaximo("1,2,3,-1,5") === "number"
-        );
+    switch (ejercicio) {
+        case "26":
+            inputs.v1 = document.getElementById("vector26Input").value;
+            break;
 
-        // ===== EJERCICIO 27 =====
-        check(
-            "Ejercicio 27",
-            JSON.stringify(combinarVectores("1,2","3,4")) === JSON.stringify([1,2,3,4])
-        );
+        case "27":
+            inputs.v1 = document.getElementById("vector27AInput").value;
+            inputs.v2 = document.getElementById("vector27BInput").value;
+            break;
 
-        // ===== EJERCICIO 28 =====
-        check(
-            "Ejercicio 28",
-            Array.isArray(encontrarPrimos("10"))
-        );
+        case "28":
+            inputs.limite = document.getElementById("limite28Input").value;
+            break;
 
-        // ===== EJERCICIO 29 =====
-        check(
-            "Ejercicio 29",
-            Array.isArray(
-                multiplicarMatrices(
-                    parseMatrix("1,2;3,4"),
-                    parseMatrix("5,6;7,8")
-                )
-            )
-        );
+        case "29":
+            inputs.a = document.getElementById("matriz29AInput").value;
+            inputs.b = document.getElementById("matriz29BInput").value;
+            break;
 
-        // ===== EJERCICIO 30 =====
-        check(
-            "Ejercicio 30",
-            Array.isArray(ordenarPorMezcla("5,3,1,4"))
-        );
-
-    } catch (e) {
-        resultados.push("Error en tests: " + e.message);
+        case "30":
+            inputs.v1 = document.getElementById("valores30Input").value;
+            break;
     }
 
-    // 👇 SALIDA SOLO PARA TESTS
-    resultadoTest.textContent = resultados.join("\n");
+    const res = ejecutarTestPorEjercicio(ejercicio, inputs);
+
+    resultadoTest.textContent = res;
+
+    if (res.toLowerCase().includes("no aprobado")) {
+        resultadoTest.className = "test-no-aprobado";
+    } else {
+        resultadoTest.className = "test-aprobado";
+    }
 });
